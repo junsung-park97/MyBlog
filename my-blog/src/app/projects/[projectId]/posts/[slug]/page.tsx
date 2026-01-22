@@ -2,8 +2,9 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import PostHeader from '@/components/molecules/post-header';
 import MarkdownContent from '@/components/molecules/markdown-content';
+import PostNavigation from '@/components/molecules/post-navigation';
 import Button from '@/components/atoms/button';
-import { getPostBySlug, getAllPosts } from '@/lib/utils/markdown';
+import { getPostBySlug, getAllPosts, getAdjacentPosts } from '@/lib/utils/markdown';
 
 // ISR: 1시간마다 재생성
 export const revalidate = 3600;
@@ -63,6 +64,9 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound();
   }
 
+  // 이전/다음 포스트 가져오기
+  const { prevPost, nextPost } = await getAdjacentPosts(slug, projectId);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <article className="container mx-auto max-w-4xl px-4 py-12">
@@ -85,7 +89,14 @@ export default async function PostPage({ params }: PostPageProps) {
           <MarkdownContent content={post.content} />
         </div>
 
-        {/* 네비게이션 */}
+        {/* 이전글/다음글 네비게이션 */}
+        <PostNavigation
+          projectId={projectId}
+          prevPost={prevPost}
+          nextPost={nextPost}
+        />
+
+        {/* 하단 네비게이션 */}
         <div className="mt-8 flex items-center justify-between border-t border-gray-200 pt-8 dark:border-gray-800">
           <Button href={`/projects/${projectId}`} variant="secondary">
             ← 프로젝트 포스트 목록
