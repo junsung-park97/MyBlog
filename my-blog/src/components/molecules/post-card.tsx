@@ -23,10 +23,12 @@ export default function PostCard({
   project,
 }: PostCardProps) {
   // 프로젝트가 있으면 프로젝트 기반 URL, 없으면 기존 URL
-  const href = project ? `/projects/${project}/posts/${slug}` : `/posts/${slug}`;
+  const href = project
+    ? `/projects/${project}/posts/${slug}`
+    : `/posts/${slug}`;
 
   return (
-    <article className="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
+    <article className="group overflow-hidden rounded-lg  transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
       <Link href={href}>
         {/* 썸네일 이미지 */}
         {thumbnail && (

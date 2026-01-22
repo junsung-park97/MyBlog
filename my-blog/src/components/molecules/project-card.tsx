@@ -15,7 +15,7 @@ export default function ProjectCard({
   thumbnail,
 }: ProjectCardProps) {
   return (
-    <article className="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-lg dark:border-gray-800 dark:bg-gray-900">
+    <article className="group overflow-hidden rounded-lg bg-white shadow-sm transition-all hover:shadow-lg dark:border-gray-800 dark:bg-gray-900">
       <Link href={`/projects/${id}`}>
         {/* 썸네일 이미지 */}
         {thumbnail ? (

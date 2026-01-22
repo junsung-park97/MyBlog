@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
 
   // 이미지 최적화 설정
   images: {
+    qualities: [50, 75, 80, 85, 100],
     remotePatterns: [
       {
         protocol: 'https',

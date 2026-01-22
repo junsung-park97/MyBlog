@@ -14,23 +14,23 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Hero Section */}
-      <section className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+      <section className="mx-24 border-b border-gray-200 dark:border-gray-800 dark:">
         <div className="container mx-auto max-w-6xl px-4 py-16 md:py-24">
           <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-gray-100 md:text-5xl lg:text-6xl">
-            안녕하세요! 👋
+            반갑습니다 🙇🏻‍♂️
           </h1>
-          <p className="mb-8 max-w-2xl text-lg text-gray-600 dark:text-gray-400 md:text-xl">
-            개발과 기술에 대한 이야기를 나누는 공간입니다.
+          <p className="mb-8 max-w-2xl text-sm text-gray-600 dark:text-gray-400 md:text-lg">
+            개발과 회고에 대한 이야기를 나누는 공간입니다.
             <br />
             프로젝트별로 정리된 학습 내용과 경험을 공유합니다.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button href="#projects" variant="primary" size="lg">
-              프로젝트 둘러보기
-            </Button>
             <Button href="/about" variant="secondary" size="lg">
-              소개
+              About Me
             </Button>
+            {/* <Button href="/about" variant="ghost" size="lg">
+              저를 소개합니다 →
+            </Button> */}
           </div>
         </div>
       </section>
@@ -42,13 +42,13 @@ export default async function Home() {
       >
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            프로젝트
+            PROJECT
           </h2>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
             다양한 주제의 프로젝트를 진행하고 있습니다.
           </p>
         </div>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-3">
           {projects.map((project) => (
             <ProjectCard
               key={project.id}
@@ -65,10 +65,10 @@ export default async function Home() {
       <section className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            최근 포스트
+            RECENT POSTS
           </h2>
           <Button href="/posts" variant="ghost">
-            전체 보기 →
+            ALL →
           </Button>
         </div>
         <PostList posts={recentPosts} />

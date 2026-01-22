@@ -1,9 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { remark } from 'remark';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
-import remarkHtml from 'remark-html';
+import remarkRehype from 'remark-rehype';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeStringify from 'rehype-stringify';
+import { all } from 'lowlight';
 
 const postsDirectory = path.join(process.cwd(), 'content/posts');
 const aboutDirectory = path.join(process.cwd(), 'content/about');
@@ -52,9 +56,12 @@ export async function getPostBySlug(slug: string): Promise<PostData | null> {
     const { data, content } = matter(fileContents);
 
     // 마크다운을 HTML로 변환
-    const processedContent = await remark()
+    const processedContent = await unified()
+      .use(remarkParse)
       .use(remarkGfm)
-      .use(remarkHtml, { sanitize: false })
+      .use(remarkRehype)
+      .use(rehypeHighlight, { languages: all })
+      .use(rehypeStringify)
       .process(content);
 
     const contentHtml = processedContent.toString();
@@ -129,9 +136,12 @@ export async function getAboutPage(): Promise<AboutPageData | null> {
     const { data, content } = matter(fileContents);
 
     // 마크다운을 HTML로 변환
-    const processedContent = await remark()
+    const processedContent = await unified()
+      .use(remarkParse)
       .use(remarkGfm)
-      .use(remarkHtml, { sanitize: false })
+      .use(remarkRehype)
+      .use(rehypeHighlight, { languages: all })
+      .use(rehypeStringify)
       .process(content);
 
     const contentHtml = processedContent.toString();

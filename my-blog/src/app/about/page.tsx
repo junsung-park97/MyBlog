@@ -33,7 +33,7 @@ export default async function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <div className="container mx-auto max-w-4xl px-4 py-12">
-        <article className="rounded-lg border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900 md:p-12">
+        <article className=" p-8 md:p-12">
           <MarkdownContent content={aboutData.content} />
 
           <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-800">
