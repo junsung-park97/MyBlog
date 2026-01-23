@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import PostCard from '@/components/molecules/post-card';
+import { error } from 'console';
 
 interface Post {
   title: string;
@@ -42,6 +43,9 @@ export default function InfinitePostList({
       const response = await fetch(
         `/api/projects/${projectId}/posts?page=${nextPage}&limit=${limit}`
       );
+      if (!response.ok) {
+        throw new Error(`HTTP Error! status ${response.status}`)
+      }
       const data = await response.json();
 
       setPosts((prev) => [...prev, ...data.posts]);
