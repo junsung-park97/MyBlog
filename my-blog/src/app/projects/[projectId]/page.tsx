@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import PostList from '@/components/organisms/post-list';
+import InfinitePostList from '@/components/organisms/infinite-post-list';
 import MarkdownContent from '@/components/molecules/markdown-content';
 import Button from '@/components/atoms/button';
 import {
   getAllProjectIds,
   getProjectById,
 } from '@/lib/utils/projects';
-import { getPostsByProject } from '@/lib/utils/markdown';
+import { getPostsByProjectPaginated } from '@/lib/utils/markdown';
 
 // ISR: 1시간마다 재생성
 export const revalidate = 3600;
@@ -53,7 +53,7 @@ export default async function ProjectPage({
     notFound();
   }
 
-  const posts = await getPostsByProject(projectId);
+  const { posts, hasMore, total } = await getPostsByProjectPaginated(projectId, 1, 6);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -91,12 +91,17 @@ export default async function ProjectPage({
             게시글
           </h2>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
-            총 {posts.length}개의 게시글이 있습니다.
+            총 {total}개의 게시글이 있습니다.
           </p>
         </div>
 
         {posts.length > 0 ? (
-          <PostList posts={posts} />
+          <InfinitePostList
+            projectId={projectId}
+            initialPosts={posts}
+            initialHasMore={hasMore}
+            limit={6}
+          />
         ) : (
           <div className="rounded-lg border border-gray-200 bg-white p-12 text-center dark:border-gray-800 dark:bg-gray-900">
             <p className="text-gray-600 dark:text-gray-400">
